@@ -1,0 +1,228 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    padding: 0 20px; 
+}
+
+/* Book Memories 로고 */
+.logo {
+    font-family: 'Julee', sans-serif;
+    font-size: 64px;
+    line-height: 75px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px; 
+}
+
+/* 책 속의 기억을 함께 간직하세요 */
+.slogan {
+    font-family: 'Yeon Sung', sans-serif;
+    font-size: 36px;
+    line-height: 45px;
+    text-align: center;
+    color: #000000;
+}
+
+/* 미디어 쿼리: 작은 화면  */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 48px;
+        line-height: 55px;
+    }
+
+    .slogan {
+        font-size: 28px;
+        line-height: 35px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 20px; 
+    }
+
+    .rectangle {
+        width: 250px; 
+        height: 180px;
+    }
+
+    .text {
+        font-size: 28px;
+    }
+
+    .subtext {
+        font-size: 18px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 36px;
+        line-height: 45px;
+    }
+
+    .slogan {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .rectangle {
+        width: 200px;
+        height: 160px;
+    }
+
+    .text {
+        font-size: 24px;
+    }
+
+    .subtext {
+        font-size: 16px;
+    }
+}
+
+.book-carousel {
+    width: 100%;
+    overflow: visible;
+    position: relative;
+    height: 300px;
+}
+
+.layer {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.top-layer {
+    top: 50px;
+    animation: moveRight 20s linear infinite;
+}
+
+.middle-layer {
+    top: 210px;
+    animation: moveLeft 20s linear infinite;
+}
+
+.bottom-layer {
+    top: 370px;
+    animation: moveRight 20s linear infinite;
+}
+
+.layer img {
+    width: 100px; 
+    height: auto;
+    margin: 0;
+}
+
+/* 오른쪽으로 움직이는 애니메이션 */
+@keyframes moveRight {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* 왼쪽으로 움직이는 애니메이션 */
+@keyframes moveLeft {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/*무한히 반복되는 책들*/
+.book-track {
+    display: flex;
+    width: 100%; 
+    white-space: nowrap;
+    animation: scrollBooks 40s linear infinite;/* 무한 회전: 속도는 40초로 설정 */
+}
+
+.book-track img {
+    width: 150px; 
+    height: auto;
+    margin: 0; 
+    padding: 0; 
+}
+
+
+body {
+    position: relative;
+    min-height: 600px; 
+  }
+  
+  .dark-navy-section {
+    position: absolute;
+    top: 800px;
+    width: 100%;
+    
+
+    background-color: #001f3f; 
+    z-index: -1;
+  }
+
+/* 소제목 */
+.subtitle {
+    position: relative;
+    width: 100%;
+    font-family: 'Yeon Sung', sans-serif;
+    font-size: 36px;
+    line-height: 200px;
+    text-align: center;
+    color: #fcf9f9;
+    margin-bottom: 15px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* 버튼  */
+.rectangle {
+    width: 300px;
+    height: 200px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.text {
+    font-family: 'Jua', sans-serif;
+    font-size: 32px;
+    color: #000000;
+}
+
+.subtext {
+    font-family: 'Yeon Sung', sans-serif;
+    font-size: 20px;
+    color: #000000;
+    margin-top: 10px;
+}
+
+
+.rectangle:hover {
+    background-color: #969191;
+}

@@ -1,0 +1,285 @@
+body {
+    font-family: 'Julee', sans-serif;
+    background-color: #F4F4F4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+  
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-family: 'Julee', sans-serif;
+    font-size: 48px;
+    color: #fefefe;
+}
+  
+p {
+    font-family: 'Yeon Sung', sans-serif; /* 폰트 변경 */
+    font-size: 18px; /* 폰트 크기 */
+    color: #f6eded; /* 텍스트 색상 */
+    line-height: 1.5; /* 줄 간격 */
+    margin: 20px 0; /* 상하 여백 */
+}
+  
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #100646;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-bottom: 2px solid #000;
+}
+
+/* 선반 스타일 */
+.bookshelf{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
+.shelf {
+    position: absolute;
+    width: 1280px;
+    height: 22px;
+    background: #FFFDFD;
+    mix-blend-mode: plus-darker;
+    border: 1px solid #000000;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 0;
+}
+
+.rectangle-1 { top: 400px; }
+.rectangle-2 { top: 600px; }
+.rectangle-3 { top: 800px; }
+.rectangle-4 { top: 1000px; }
+
+/* 업로드 버튼 */
+.upload-button {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 118px;
+    top: 45px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploadButton {
+    width: 50px;
+    height: 50px;
+    background: rgb(252, 252, 252);
+    mix-blend-mode: normal;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-button:hover .uploadButton {
+    border-radius: 15px;
+    background-color: #8e9296; 
+}
+
+
+.icon-plus {
+    width: 36px;
+    height: 36px;
+    background: url('plus.png') no-repeat center center;
+    background-size: cover;
+}
+
+
+/* 이미지 항목 */
+.imageItem {
+    margin: 0 10px;
+    position: relative;
+    bottom: 22px;
+}
+
+.imageItem img {
+    width: 100px;
+    height: 150px;
+    display: block;
+}
+
+/* 폼 컨테이너 */
+#formContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    background: #F0F0F0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}
+
+.form-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+    color: #000; 
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="date"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-family: 'Jua', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 5px;
+  }
+  
+.close:hover {
+    color: #000;
+}
+
+#saveButton, #deleteButton {
+    background-color: #100646;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Jua', sans-serif;
+    transition: background-color 0.3s ease;
+}
+  
+#saveButton:hover, #deleteButton:hover {
+    background-color: #333;
+}
+
+/* 저장된 내용 표시 */
+#savedContentContainer {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #fff;
+    border: 3px solid #000;
+    padding: 10px;
+    display: none;
+    max-width: 500px;
+}
+
+
+.saved-content {
+    margin: 10px 0;
+}
+
+.dates {
+    margin-bottom: 10px;
+}
+
+.quote {
+    margin-bottom: 10px;
+}
+
+.quote-text {
+    font-style: italic;
+}
+
+/* 햄버거 메뉴 버튼 */
+.hamburger-menu {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 118px;
+    top: 45px;
+}
+
+.menu-icon {
+    width: 50px;
+    height: 50px;
+    background: rgb(252, 252, 252);
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #333;
+}
+
+/* 드롭다운 메뉴 */
+.dropdown-menu {
+    font-family: 'Jua', sans-serif;
+    display: none;
+    pointer-events: auto; 
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 200px;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+/* 햄버거 메뉴 버튼 클릭 시 메뉴 표시 */
+.hamburger-menu .menu-icon:focus + .dropdown-menu,
+.hamburger-menu .menu-icon:hover + .dropdown-menu {
+    display: block;
+}
+
+.hamburger-menu:hover .menu-icon {
+    border-radius: 15px;
+    background-color: #8e9296; 
+}
+
+.dropdown-menu a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
