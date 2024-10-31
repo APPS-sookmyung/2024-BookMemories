@@ -7,7 +7,7 @@
     padding: 0 20px; 
 }
 
-/* Book Memories 로고 */
+/* Book Memories */
 .logo {
     font-family: 'Julee', sans-serif;
     font-size: 64px;
@@ -26,69 +26,7 @@
     color: #000000;
 }
 
-/* 미디어 쿼리: 작은 화면  */
-@media (max-width: 768px) {
-    .logo {
-        font-size: 48px;
-        line-height: 55px;
-    }
-
-    .slogan {
-        font-size: 28px;
-        line-height: 35px;
-    }
-
-    .button-container {
-        flex-direction: column;
-        gap: 20px; 
-    }
-
-    .rectangle {
-        width: 250px; 
-        height: 180px;
-    }
-
-    .text {
-        font-size: 28px;
-    }
-
-    .subtext {
-        font-size: 18px;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .logo {
-        font-size: 36px;
-        line-height: 45px;
-    }
-
-    .slogan {
-        font-size: 24px;
-        line-height: 30px;
-    }
-
-    .button-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .rectangle {
-        width: 200px;
-        height: 160px;
-    }
-
-    .text {
-        font-size: 24px;
-    }
-
-    .subtext {
-        font-size: 16px;
-    }
-}
-
-.book-carousel {
+.book-carouse {
     width: 100%;
     overflow: visible;
     position: relative;
@@ -104,39 +42,48 @@
 
 .top-layer {
     top: 50px;
-    animation: moveRight 20s linear infinite;
+   /* animation: moveRight 20s linear infinite;*/
 }
 
 .middle-layer {
     top: 210px;
-    animation: moveLeft 20s linear infinite;
+    /*animation: moveLeft 20s linear infinite;*/
 }
 
 .bottom-layer {
     top: 370px;
-    animation: moveRight 20s linear infinite;
+    /*animation: moveRight 20s linear infinite;*/
 }
 
 .layer img {
     width: 100px; 
     height: auto;
-    margin: 0;
+    /*margin: 0;*/
+    margin-right: 20px; 
+    padding: 0; 
+
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; 
+
 }
 
-/* 오른쪽으로 움직이는 애니메이션 */
+
+.hide {
+    opacity: 0;
+    transform: translateX(-100%); 
+}
+
 @keyframes moveRight {
     0% {
-        transform: translateX(-100%);
+        transform: translateX(0%);
     }
     100% {
         transform: translateX(100%);
     }
 }
 
-/* 왼쪽으로 움직이는 애니메이션 */
 @keyframes moveLeft {
     0% {
-        transform: translateX(100%);
+        transform: translateX(0%);
     }
     100% {
         transform: translateX(-100%);
@@ -148,7 +95,7 @@
     display: flex;
     width: 100%; 
     white-space: nowrap;
-    animation: scrollBooks 40s linear infinite;/* 무한 회전: 속도는 40초로 설정 */
+    /*animation: scrollBooks 20s linear infinite;*/
 }
 
 .book-track img {
@@ -157,8 +104,7 @@
     margin: 0; 
     padding: 0; 
 }
-
-
+    
 body {
     position: relative;
     min-height: 600px; 
@@ -192,6 +138,8 @@ body {
     gap: 50px;
     padding: 20px;
     width: 100%;
+    justify-content: center; 
+    align-items: center; 
 }
 
 /* 버튼  */
@@ -225,4 +173,44 @@ body {
 
 .rectangle:hover {
     background-color: #969191;
+}
+
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .rectangle {
+        width: 200px;
+        height: 150px;
+    }
+
+    .text {
+        font-size: 24px;
+    }
+
+    .subtext {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .rectangle {
+        width: 150px;
+        height: 120px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .subtext {
+        font-size: 14px;
+    }
 }

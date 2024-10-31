@@ -1,3 +1,4 @@
+const pageId = 'bookMemories-read'
 //파일 업로드 버튼 클릭
 document.getElementById('uploadButton').addEventListener('click', function() {
     document.getElementById('fileInput').click();
@@ -26,10 +27,11 @@ function saveContent(imageItem) {
         startDate: startDate,
         endDate: endDate,
         quote: quote,
-        emoji: selectedEmoji
+        emoji: selectedEmoji,
+        imageSrc: imageItem.querySelector('img').src
     };
 
-    const imageId = `image-${Date.now()}`;
+    const imageId = imageItem.dataset.savedContentId || `${pageId}-${Date.now()}`;
     localStorage.setItem(imageId, JSON.stringify(savedContent));
 
     imageItem.dataset.savedContentId = imageId;
@@ -138,7 +140,7 @@ menuButton.addEventListener('click', function(event) {
     dropdownMenu.classList.toggle('active');
 });
 
-// 메뉴 내 링크 클릭 시 페이지 이동 허용 (따로 처리할 필요 없이 기본 동작)
+// 메뉴 내 링크 클릭 시 페이지 이동 허용
 document.querySelectorAll('.dropdown-menu a').forEach(link => {
     link.addEventListener('click', function(event) {
         dropdownMenu.classList.remove('active');
@@ -167,12 +169,15 @@ window.onclick = function(event) {
     }
 };
 
-const loadedImages = new Set(); // 이미 로드된 이미지 아이디를 저장
+const loadedImages = new Set();
 
-// 페이지 로드 시 로컬 스토리지에서 이미지와 저장된 데이터를 불러오기
+// 이미지와 저장된 데이터를 불러오기
 window.addEventListener('load', function() {
     for (let i = 0; i < localStorage.length; i++) {
         const imageId = localStorage.key(i);
+
+        // 페이지별 고유 ID로 구분
+        if (!imageId.startsWith(pageId)) continue;
 
         // 중복 방지를 위해 로드된 이미지를 체크
         if (loadedImages.has(imageId)) continue;
@@ -189,7 +194,7 @@ window.addEventListener('load', function() {
             imageItem.appendChild(imgElement);
             imageItem.dataset.savedContentId = imageId;
 
-            // 클릭 및 더블 클릭 이벤트 추가
+            // 클릭 및 더블 클릭 이벤트
             imageItem.addEventListener('click', function() {
                 document.getElementById('formContainer').style.display = 'block';
                 loadFormData(imageItem); 
@@ -198,7 +203,7 @@ window.addEventListener('load', function() {
             });
 
             imageItem.addEventListener('dblclick', function() {
-                showSavedContent(this);  // 더블 클릭 시 저장된 내용 표시
+                showSavedContent(this); 
             });
 
             // 이미지 배치
@@ -219,7 +224,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            const imageId = `image-${Date.now()}`; // 새 이미지 아이디 생성
+            const imageId = `${pageId}-${Date.now()}`; 
             if (loadedImages.has(imageId)) return; // 중복 방지
 
             const imgElement = document.createElement('img');
@@ -238,7 +243,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
             });
 
             imageItem.addEventListener('dblclick', function() {
-                showSavedContent(this); // 저장된 내용을 표시
+                showSavedContent(this); 
             });
 
             // 이미지 배치
@@ -294,8 +299,8 @@ function saveContent(imageItem) {
     const quote = document.getElementById('quote').value;
     const selectedEmoji = document.querySelector('.emoji.selected') ? document.querySelector('.emoji.selected').textContent : '';
 
-    const imageId = imageItem.dataset.savedContentId; // 기존 데이터의 ID를 사용
-    const savedContent = JSON.parse(localStorage.getItem(imageId)); // 기존 데이터 불러오기
+    const imageId = imageItem.dataset.savedContentId; 
+    const savedContent = JSON.parse(localStorage.getItem(imageId)); 
     savedContent.bookTitle = bookTitle;
     savedContent.pageCount = pageCount;
     savedContent.startDate = startDate;
@@ -303,7 +308,7 @@ function saveContent(imageItem) {
     savedContent.quote = quote;
     savedContent.emoji = selectedEmoji;
 
-    localStorage.setItem(imageId, JSON.stringify(savedContent)); // 수정된 데이터 저장
+    localStorage.setItem(imageId, JSON.stringify(savedContent)); 
 
     resetForm();
     document.getElementById('formContainer').style.display = 'none';

@@ -3,51 +3,8 @@ document.getElementById('uploadButton').addEventListener('click', function() {
     document.getElementById('fileInput').click();
 });
 
-//파일 선택 시 이미지 업로드
-document.getElementById('fileInput').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const imgElement = document.createElement('img');
-            imgElement.src = e.target.result;
-
-            const imageItem = document.createElement('div');
-            imageItem.classList.add('imageItem');
-            imageItem.appendChild(imgElement);
-
-            let clickTimeout;
-            
-            imageItem.addEventListener('click', function() {
-                clearTimeout(clickTimeout);
-                clickTimeout = setTimeout(() => {
-                    document.getElementById('formContainer').style.display = 'block';
-                    loadFormData(imageItem);
-                    document.getElementById('saveButton').onclick = () => saveContent(imageItem);
-                    document.getElementById('deleteButton').onclick = () => deleteContent(imageItem);
-                }, 200);
-                });//이미지 1번 클릭 시 formcontainer 나타남
-
-            imageItem.addEventListener('dblclick', function() {
-                clearTimeout(clickTimeout);
-                showSavedContent(this);
-            });
-            
-            //이미지 배치 최대 5개까지로 일단 함
-            let shelves = document.getElementsByClassName('shelf');
-            for (let shelf of shelves) {
-                if (shelf.children.length < 5) {
-                    shelf.appendChild(imageItem);
-                    break;
-                }
-            }
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-
 //데이터 저장, imageId 생성해 로컬 저장, 폼 입력 필드 초기화
+const pageId = 'bookMemories-toRead'; 
 function saveContent(imageItem) {
     const bookTitle = document.getElementById('bookTitle').value;
     const pageCount = document.getElementById('pageCount').value;
@@ -60,13 +17,16 @@ function saveContent(imageItem) {
         pageCount: pageCount,
         author: author,
         publisher: publisher,
-        date: date
+        date: date,
+        imageSrc: imageItem.querySelector('img').src
     };
 
-    const imageId = `image-${Date.now()}`;
+    const imageId = imageItem.dataset.savedContentId || `${pageId}-${Date.now()}`;
     localStorage.setItem(imageId, JSON.stringify(savedContent));
 
     imageItem.dataset.savedContentId = imageId;
+
+    console.log(`저장된 데이터: ${localStorage.getItem(imageId)}`);
 
     resetForm();
     document.getElementById('formContainer').style.display = 'none';
@@ -149,7 +109,7 @@ menuButton.addEventListener('click', function(event) {
     dropdownMenu.classList.toggle('active'); // 'active' 클래스를 토글하여 메뉴 열기/닫기
 });
 
-// 메뉴 내 링크 클릭 시 페이지 이동 허용 (따로 처리할 필요 없이 기본 동작)
+// 메뉴 내 링크 클릭 시 페이지 이동 허용
 document.querySelectorAll('.dropdown-menu a').forEach(link => {
     link.addEventListener('click', function(event) {
         dropdownMenu.classList.remove('active');
@@ -179,189 +139,101 @@ window.onclick = function(event) {
 };
 
 // ////////////////////////
-// const loadedImages = new Set(); 
+const loadedImages = new Set(); 
 
-// // 페이지 로드 시 로컬 스토리지에서 이미지와 저장된 데이터를 불러오기
-// window.addEventListener('load', function() {
-//     for (let i = 0; i < localStorage.length; i++) {
-//         const imageId = localStorage.key(i);
+// 페이지 로드 시 로컬 스토리지에서 이미지와 저장된 데이터를 불러오기
+window.addEventListener('load', function() {
+    for (let i = 0; i < localStorage.length; i++) {
+        const imageId = localStorage.key(i);
+        const savedContent = JSON.parse(localStorage.getItem(imageId));
+        
+        if (!savedContent || !imageId.startsWith(pageId)) continue;  
+        if (loadedImages.has(imageId)) continue;  // 중복 방지
 
-//         // 중복 방지를 위해 로드된 이미지를 체크
-//         if (loadedImages.has(imageId)) continue;
-//         loadedImages.add(imageId);
+        loadedImages.add(imageId);
 
-//         if (key.startsWith('toRead-')) {
-//             const savedContent = JSON.parse(localStorage.getItem(key));
+        const imgElement = document.createElement('img');
+        imgElement.src = savedContent.imageSrc;
 
-//             if (savedContent) {
-//                 displayBook(savedContent, key, 'toReadShelf');
-//             }
-//         }
+        const imageItem = document.createElement('div');
+        imageItem.classList.add('imageItem');
+        imageItem.appendChild(imgElement);
+        imageItem.dataset.savedContentId = imageId;
 
-//         const savedContent = JSON.parse(localStorage.getItem(imageId));
+        // 클릭 및 더블 클릭 이벤트
+        imageItem.addEventListener('click', function() {
+            document.getElementById('formContainer').style.display = 'block';
+            loadFormData(imageItem);
+            document.getElementById('saveButton').onclick = () => saveContent(imageItem);
+            document.getElementById('deleteButton').onclick = () => deleteContent(imageItem);
+        });
 
-//         if (savedContent && savedContent.imageSrc) {
-//             const imgElement = document.createElement('img');
-//             imgElement.src = savedContent.imageSrc;
+        imageItem.addEventListener('dblclick', function() {
+            showSavedContent(this); 
+        });
 
-//             const imageItem = document.createElement('div');
-//             imageItem.classList.add('imageItem');
-//             imageItem.appendChild(imgElement);
-//             imageItem.dataset.savedContentId = imageId;
-
-//             // 클릭 및 더블 클릭 이벤트
-//             imageItem.addEventListener('click', function() {
-//                 document.getElementById('formContainer').style.display = 'block';
-//                 loadFormData(imageItem);  // 클릭하면 폼에 데이터 로드
-//                 document.getElementById('saveButton').onclick = () => saveContent(imageItem); 
-//                 document.getElementById('deleteButton').onclick = () => deleteContent(imageItem);
-//             });
-
-//             imageItem.addEventListener('dblclick', function() {
-//                 showSavedContent(this);  // 더블 클릭 시 저장된 내용 표시
-//             });
-
-//             // 이미지 배치
-//             let shelves = document.getElementsByClassName('shelf');
-//             for (let shelf of shelves) {
-//                 if (shelf.children.length < 5) {
-//                     shelf.appendChild(imageItem);
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-// });
-
-// // 파일 선택 시 이미지 업로드 및 저장
-// document.getElementById('fileInput').addEventListener('change', function(event) {
-//     const file = event.target.files[0];
-//     if (file) {
-//         const reader = new FileReader();
-//         reader.onload = function(e) {
-//             const imageId = `toRead-${Date.now()}`; // 새 이미지 아이디 생성
-//             if (loadedImages.has(imageId)) return; // 중복 방지
-
-//             const imgElement = document.createElement('img');
-//             imgElement.src = e.target.result;
-
-//             const imageItem = document.createElement('div');
-//             imageItem.classList.add('imageItem');
-//             imageItem.appendChild(imgElement);
-//             imageItem.dataset.savedContentId = imageId;
-
-//             imageItem.addEventListener('click', function() {
-//                 document.getElementById('formContainer').style.display = 'block';
-//                 loadFormData(imageItem);
-//                 document.getElementById('saveButton').onclick = () => saveContent(imageItem); 
-//                 document.getElementById('deleteButton').onclick = () => deleteContent(imageItem); 
-//             });
-
-//             imageItem.addEventListener('dblclick', function() {
-//                 showSavedContent(this); // 저장된 내용을 표시
-//             });
-
-//             // 이미지 배치
-//             let shelves = document.getElementsByClassName('shelf');
-//             for (let shelf of shelves) {
-//                 if (shelf.children.length < 5) {
-//                     shelf.appendChild(imageItem);
-//                     break;
-//                 }
-//             }
-
-//             // 이미지와 기본 데이터를 로컬 스토리지에 저장
-//             const savedContent = {
-//                 imageSrc: e.target.result, // Base64로 저장된 이미지
-//                 bookTitle: '',  // 폼에서 입력할 책 제목
-//                 pageCount: '',  // 폼에서 입력할 페이지 수
-//                 author: '',  // 폼에서 입력할 시작 날짜
-//                 publisher: '',  // 폼에서 입력할 끝 날짜
-//                 date: '',  // 폼에서 입력할 인상 깊은 구절
-//             };
-//             localStorage.setItem(imageId, JSON.stringify(savedContent)); // 로컬 스토리지에 저장
-//             loadedImages.add(imageId); // 중복 방지를 위해 저장
-//         };
-//         reader.readAsDataURL(file); 
-//     }
-// });
-
-// // 저장된 데이터 폼에 불러오기
-// function loadFormData(imageItem) {
-//     const imageId = imageItem.dataset.savedContentId;
-//     if (imageId) {
-//         const savedContent = JSON.parse(localStorage.getItem(imageId));
-//         if (savedContent) {
-//             document.getElementById('bookTitle').value = savedContent.bookTitle;
-//             document.getElementById('pageCount').value = savedContent.pageCount;
-//             document.getElementById('author').value = savedContent.author;
-//             document.getElementById('publisher').value = savedContent.publisher;
-//             document.getElementById('date').value = savedContent.date;
-//         }
-//     }
-// }
-
-// // 폼 데이터 저장 (기존 데이터 덮어쓰기)
-// function saveContent(imageItem) {
-//     const bookTitle = document.getElementById('bookTitle').value;
-//     const pageCount = document.getElementById('pageCount').value;
-//     const author = document.getElementById('author').value;
-//     const publisher = document.getElementById('publisher').value;
-//     const date = document.getElementById('date').value;
-
-//     const imageId = imageItem.dataset.savedContentId; // 기존 데이터의 ID를 사용
-//     const savedContent = JSON.parse(localStorage.getItem(imageId)); // 기존 데이터 불러오기
-//     savedContent.bookTitle = bookTitle;
-//     savedContent.pageCount = pageCount;
-//     savedContent.author = author;
-//     savedContent.publisher = publisher;
-//     savedContent.date = date;
-
-//     localStorage.setItem(imageId, JSON.stringify(savedContent)); // 수정된 데이터 저장
-
-//     resetForm();
-//     document.getElementById('formContainer').style.display = 'none';
-// }
-
-// // 폼 리셋 함수
-// function resetForm() {
-//     document.getElementById('bookTitle').value = '';
-//     document.getElementById('pageCount').value = '';
-//     document.getElementById('author').value = '';
-//     document.getElementById('publisher').value = '';
-//     document.getElementById('date').value = '';
-// }
-/////////////////////////////////////////////////////////
+        // 이미지 배치
+        let shelves = document.getElementsByClassName('shelf');
+        for (let shelf of shelves) {
+            if (shelf.children.length < 5) {
+                shelf.appendChild(imageItem);
+                break;
+            }
+        }
+    }
+});
 
 
+// 파일 선택 시 이미지 업로드 및 저장
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageId = `${pageId}-${Date.now()}`; 
+            if (loadedImages.has(imageId)) return; // 중복 방지
 
-// // 책을 화면에 표시하는 함수
-// function displayBook(imageId, content) {
-//     const imgElement = document.createElement('img');
-//     imgElement.src = 'path_to_image'; // 이미지 소스 설정
+            const imgElement = document.createElement('img');
+            imgElement.src = e.target.result;
 
-//     const imageItem = document.createElement('div');
-//     imageItem.classList.add('imageItem');
-//     imageItem.appendChild(imgElement);
-//     imageItem.dataset.savedContentId = imageId;
+            const imageItem = document.createElement('div');
+            imageItem.classList.add('imageItem');
+            imageItem.appendChild(imgElement);
+            imageItem.dataset.savedContentId = imageId;
 
-//     // 클릭 및 더블 클릭 이벤트 추가
-//     imageItem.addEventListener('click', function() {
-//         document.getElementById('formContainer').style.display = 'block';
-//         loadFormData(imageItem, 'toRead');
-//         document.getElementById('saveButton').onclick = () => saveContent(imageItem, 'toRead');
-//         document.getElementById('deleteButton').onclick = () => deleteContent(imageItem);
-//     });
+            imageItem.addEventListener('click', function() {
+                document.getElementById('formContainer').style.display = 'block';
+                loadFormData(imageItem);
+                document.getElementById('saveButton').onclick = () => saveContent(imageItem); 
+                document.getElementById('deleteButton').onclick = () => deleteContent(imageItem); 
+            });
 
-//     imageItem.addEventListener('dblclick', function() {
-//         showSavedContent(this);
-//     });
+            imageItem.addEventListener('dblclick', function() {
+                showSavedContent(this);
+            });
 
-//     let shelves = document.getElementsByClassName('shelf');
-//     for (let shelf of shelves) {
-//         if (shelf.children.length < 5) {
-//             shelf.appendChild(imageItem);
-//             break;
-//         }
-//     }
-// }
+            // 이미지 배치
+            let shelves = document.getElementsByClassName('shelf');
+            for (let shelf of shelves) {
+                if (shelf.children.length < 5) {
+                    shelf.appendChild(imageItem);
+                    break;
+                }
+            }
+
+            // 이미지와 기본 데이터를 로컬 스토리지에 저장
+            const savedContent = {
+                imageSrc: e.target.result, 
+                bookTitle: '',  
+                pageCount: '',  
+                author: '',  
+                publisher: '',  
+                date: '',  
+                
+            };
+            localStorage.setItem(imageId, JSON.stringify(savedContent)); 
+            loadedImages.add(imageId); // 중복 방지
+        };
+        reader.readAsDataURL(file); 
+    }
+});

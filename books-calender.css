@@ -1,5 +1,5 @@
 body {
-  font-family: 'Julee', sans-serif;
+  /*font-family: 'Julee', sans-serif;*/
   background-color: #F4F4F4;
   margin: 0;
   padding: 0;
@@ -121,7 +121,6 @@ header {
 }
 
 .modal-content {
-  font-family: 'Jua', sans-serif;
   background-color: #F0F0F0;
   margin: 10% auto;
   padding: 20px;
@@ -157,7 +156,7 @@ input[type="text"], input[type="file"], textarea {
   margin-bottom: 10px;
   border: 1px solid #1a1313;
   border-radius: 4px;
-  font-family: 'Jua', sans-serif;
+  /*font-family: 'Jua', sans-serif;*/
 }
 
 button {
@@ -249,4 +248,60 @@ button:hover {
 
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
+}
+
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  #calendar-grid {
+    grid-template-columns: repeat(7, 1fr); 
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  #calendar-controls {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .dropdown-menu {
+    width: 150px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  #calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+
+  #calendar-controls {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .dropdown-menu {
+    width: 120px;
+  }
 }

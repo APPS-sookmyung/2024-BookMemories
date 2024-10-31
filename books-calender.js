@@ -108,11 +108,11 @@ function renderCalendar() {
 
 // 독서 기록 저장
 saveEntryBtn.addEventListener('click', () => {
-  const book = bookInput.value;
-  const memo = memoInput.value;
+  const book = bookInput.value || '';
+  const memo = memoInput.value || '';
   const imageFile = imageInput.files[0];
 
-  if (selectedDate && book && memo) {
+  if (selectedDate) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageData = e.target.result;
@@ -142,10 +142,8 @@ saveEntryBtn.addEventListener('click', () => {
       closeModalFunction();
       renderCalendar();
     }
-  } else {
-    alert('책 제목과 메모를 모두 입력해주세요.');
-  }
-});
+  } 
+ });
 
 // 삭제 기능
 deleteEntryBtn.addEventListener('click', () => {

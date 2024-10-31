@@ -1,19 +1,48 @@
-const bookList = document.getElementById('bookList');
-        const bookWidth = 160; // 각 책의 너비 + 여백 (150px + 10px)
-        const totalBooks = 10; // 총 10권의 책
-        let position = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    const layers = document.querySelectorAll('.layer'); 
+    const bookWidth = 150; 
+    const speed = 0.1; 
+    const booksPerSet = 20; 
 
-        // 책 목록을 자동으로 왼쪽으로 이동시키는 함수
-        function moveBooks() {
-            position -= 1; // 왼쪽으로 1px씩 이동
+    layers.forEach((layer, index) => {
+        let position = 0; 
+        const books = Array.from(layer.children);
+        const totalBooks = books.length;
+        const layerWidth = totalBooks * bookWidth; 
 
-            // 마지막 책이 등장하기 시작하면 위치를 조정하여 처음 책이 자연스럽게 이어지게 함
-            if (position <= -(bookWidth * totalBooks)) {
-                position = 0; // 처음으로 리셋 (처음 책이 다시 등장)
-            }
-
-            bookList.style.left = position + 'px'; // 위치 변경
+        // 시작 위치를 미리 설정
+        if (index % 2 !== 0) {
+            position = -(layerWidth*7.876) ; 
         }
 
-        // 20ms마다 moveBooks 함수 호출하여 책 목록 이동
-        setInterval(moveBooks, 20);
+        // 책 목록을 한 세트씩 복제하여 무한 스크롤 구현
+        for (let i = 0; i < booksPerSet; i++) {
+            books.forEach(book => {
+                const clone = book.cloneNode(true);
+                layer.appendChild(clone); // 복제된 책을 뒤에 추가
+            });
+        }
+
+        function moveBooks() {
+            position += (index % 2 === 0 ? -speed : speed);
+            if (index % 2 === 0) {
+                position -= speed;
+            } else {
+                position += speed;
+            }
+
+            layer.style.transform = `translateX(${position}px)`;
+
+            if (index % 2 === 0 && Math.abs(position) >= layerWidth) {
+                position = 0; 
+            } else if (index % 2 !== 0 && position >= layerWidth) {
+                position = -layerWidth / 2; 
+            }
+
+            requestAnimationFrame(moveBooks);
+        }
+
+        moveBooks(); 
+    });
+});
+
