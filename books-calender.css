@@ -1,5 +1,4 @@
 body {
-  /*font-family: 'Julee', sans-serif;*/
   background-color: #F4F4F4;
   margin: 0;
   padding: 0;
@@ -30,7 +29,6 @@ header {
   border-bottom: 2px solid #000;
 }
 
-/* 달력 컨테이너 */
 #calendar-section {
   display: flex;
   flex-direction: column;
@@ -51,7 +49,6 @@ header {
   color: #070202;
 }
 
-/* 달력 그리드 */
 #calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -108,7 +105,6 @@ header {
   border-radius: 5px;
 }
 
-/* 모달 창 */
 .modal {
   display: none;
   position: fixed;
@@ -156,7 +152,6 @@ input[type="text"], input[type="file"], textarea {
   margin-bottom: 10px;
   border: 1px solid #1a1313;
   border-radius: 4px;
-  /*font-family: 'Jua', sans-serif;*/
 }
 
 button {
@@ -174,7 +169,6 @@ button:hover {
   background-color: #333;
 }
 
-/* 독서 기록 */
 #reading-log {
   list-style-type: none;
   padding: 0;
@@ -196,7 +190,6 @@ button:hover {
   border-radius: 5px;
 }
 
-/* 메모 */
 .memo-icon {
   display: inline-block;
   margin-left: 5px;

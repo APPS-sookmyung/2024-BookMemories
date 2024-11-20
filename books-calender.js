@@ -14,7 +14,6 @@ let currentDate = new Date();
 let selectedDate = null;
 let readingEntries = JSON.parse(localStorage.getItem('readingEntries')) || {};
 
-// 모달 열기
 function openModal(dateKey) {
     selectedDate = dateKey;
     if (readingEntries[dateKey]) {
@@ -27,7 +26,6 @@ function openModal(dateKey) {
     modal.style.display = 'block';
 }
 
-// 모달 닫기
 function closeModalFunction() {
     modal.style.display = 'none';
     bookInput.value = '';
@@ -45,7 +43,6 @@ window.onclick = function (event) {
     }
 }
 
-// 달력 렌더링
 function renderCalendar() {
   calendarGrid.innerHTML = `
     <div class="day-header">일</div>
@@ -64,13 +61,11 @@ function renderCalendar() {
 
   monthYearLabel.textContent = `${year}년 ${month + 1}월`;
 
-  // 이전 달 빈 칸 채우기
   for (let i = 0; i < firstDayOfMonth; i++) {
     const emptyCell = document.createElement('div');
     calendarGrid.appendChild(emptyCell);
   }
 
-  // 현재 달 날짜 채우기
   for (let day = 1; day <= lastDateOfMonth; day++) {
     const dayElement = document.createElement('div');
     dayElement.classList.add('calendar-day');
@@ -78,26 +73,22 @@ function renderCalendar() {
 
     const dateKey = `${year}-${month + 1}-${day}`;
 
-    // 이미지가 있으면 표시
     if (readingEntries[dateKey]) {
       const imgElement = document.createElement('img');
       imgElement.src = readingEntries[dateKey].image || '';
       imgElement.classList.add('calendar-img');
       dayElement.appendChild(imgElement);
 
-      // 메모가 있으면 메모 아이콘 표시
       if (readingEntries[dateKey].memo) {
         const memoIcon = document.createElement('i');
         memoIcon.classList.add('fas', 'fa-sticky-note');
         memoIcon.classList.add('memo-icon');
         dayElement.appendChild(memoIcon);
 
-        // 툴팁으로 메모 미리보기
         dayElement.title = readingEntries[dateKey].memo;
       }
     }
 
-    // 날짜 클릭하면 모달 창 열기
     dayElement.addEventListener('click', () => {
       openModal(dateKey);
     });
@@ -106,7 +97,6 @@ function renderCalendar() {
   }
 }
 
-// 독서 기록 저장
 saveEntryBtn.addEventListener('click', () => {
   const book = bookInput.value || '';
   const memo = memoInput.value || '';
@@ -117,7 +107,6 @@ saveEntryBtn.addEventListener('click', () => {
     reader.onload = (e) => {
       const imageData = e.target.result;
 
-      // 선택한 날짜에 기록 저장
       readingEntries[selectedDate] = {
         book: book,
         memo: memo,
@@ -132,7 +121,6 @@ saveEntryBtn.addEventListener('click', () => {
     if (imageFile) {
       reader.readAsDataURL(imageFile);
     } else {
-      // 이미지 파일이 없으면 이미지 없이 저장
       readingEntries[selectedDate] = {
         book: book,
         memo: memo,
@@ -145,7 +133,6 @@ saveEntryBtn.addEventListener('click', () => {
   } 
  });
 
-// 삭제 기능
 deleteEntryBtn.addEventListener('click', () => {
   if (selectedDate && readingEntries[selectedDate]) {
     delete readingEntries[selectedDate]; 
@@ -157,7 +144,6 @@ deleteEntryBtn.addEventListener('click', () => {
   }
 });
 
-// 달력 이전/다음 달로 이동
 prevMonthBtn.addEventListener('click', () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   renderCalendar();
@@ -168,5 +154,4 @@ nextMonthBtn.addEventListener('click', () => {
   renderCalendar();
 });
 
-// 초기화
 renderCalendar();

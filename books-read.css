@@ -30,7 +30,6 @@ header {
     border-bottom: 2px solid #000;
 }
 
-/* 선반 */
 .bookshelf{
     display: flex;
     flex-direction: column;
@@ -58,7 +57,6 @@ header {
 .rectangle-3 { top: 800px; }
 .rectangle-4 { top: 1000px; }
 
-/* 업로드 버튼 */
 .upload-button {
     position: absolute;
     width: 50px;
@@ -97,7 +95,6 @@ header {
     background-size: cover;
 }
 
-/* 이미지 항목 */
 .imageItem {
     margin: 0 10px;
     position: relative;
@@ -110,7 +107,6 @@ header {
     display: block;
 }
 
-/* 폼 컨테이너 */
 #formContainer {
     position: fixed;
     top: 50%;
@@ -184,7 +180,6 @@ textarea {
     background-color: #333;
 }
 
-/* 이모티콘 */
 .emojis {
     margin: 10px 0;
 }
@@ -204,7 +199,6 @@ textarea {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* 저장된 내용 표시 */
 #savedContentContainer {
     position: absolute;
     bottom: 10px;
@@ -233,7 +227,6 @@ textarea {
     font-style: italic;
 }
 
-/* 햄버거 메뉴 버튼 */
 .hamburger-menu {
     position: absolute;
     width: 50px;
@@ -256,7 +249,6 @@ textarea {
     color: #333;
 }
 
-/* 드롭다운 메뉴 */
 .dropdown-menu {
     font-family: 'Jua', sans-serif;
     display: none;
@@ -272,7 +264,6 @@ textarea {
     z-index: 1000;
 }
 
-/* 햄버거 메뉴 버튼 클릭 시 메뉴 표시 */
 .hamburger-menu .menu-icon:focus + .dropdown-menu,
 .hamburger-menu .menu-icon:hover + .dropdown-menu {
     display: block;

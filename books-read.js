@@ -1,5 +1,4 @@
 const pageId = 'bookMemories-read'
-//파일 업로드 버튼 클릭
 document.getElementById('uploadButton').addEventListener('click', function() {
     document.getElementById('fileInput').click();
 });
@@ -13,7 +12,6 @@ document.querySelectorAll('.emoji').forEach(emoji => {
     });
 });
 
-//데이터 저장, imageId 생성해 로컬 저장, 폼 입력 필드 초기화
 function saveContent(imageItem) {
     const bookTitle = document.getElementById('bookTitle').value;
     const pageCount = document.getElementById('pageCount').value;
@@ -49,7 +47,6 @@ function resetForm(){
     selectedEmoji = '';
 }
 
-//저장된 데이터 및 이미지 삭제... 다시 해야 함 이 부분
 function deleteContent(imageItem) {
     const imageId = imageItem.dataset.savedContentId;
     if (imageId) {
@@ -60,7 +57,6 @@ function deleteContent(imageItem) {
     }
 }
 
-//저장된 데이터 불러와 다시 폼에 표시
 function loadFormData(imageItem) {
     const imageId = imageItem.dataset.savedContentId;
     if (imageId) {
@@ -89,7 +85,6 @@ function resetForm() {
     selectedEmoji = '';
 }
 
-//저장된 내용 표시
 function displaySavedContent(content) {
     const savedContentContainer = document.getElementById('savedContentContainer');
     savedContentContainer.innerHTML = `
@@ -108,8 +103,6 @@ function displaySavedContent(content) {
         </div>
     `;
     savedContentContainer.style.display = 'block';
-
-    // 중앙에 위치시키기
     savedContentContainer.style.position = 'fixed';
     savedContentContainer.style.left = '50%';
     savedContentContainer.style.top = '50%';
@@ -135,32 +128,27 @@ function showSavedContent(imageItem) {
 const menuButton = document.querySelector('.menu-icon');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 
-// 메뉴 버튼 클릭 시 드롭다운 메뉴 표시/숨김
 menuButton.addEventListener('click', function(event) {
     dropdownMenu.classList.toggle('active');
 });
 
-// 메뉴 내 링크 클릭 시 페이지 이동 허용
 document.querySelectorAll('.dropdown-menu a').forEach(link => {
     link.addEventListener('click', function(event) {
         dropdownMenu.classList.remove('active');
     });
 });
 
-// 페이지 외부 클릭 시 메뉴 닫기
 document.addEventListener('click', function(event) {
     if (!dropdownMenu.contains(event.target) && !menuButton.contains(event.target)) {
         dropdownMenu.classList.remove('active');
     }
 });
 
-// 닫기 버튼 기능
 document.querySelector('.close').addEventListener('click', function() {
     document.getElementById('formContainer').style.display = 'none';
     resetForm();
 });
 
-// 폼 바깥 클릭 시 닫기
 window.onclick = function(event) {
     const formContainer = document.getElementById('formContainer');
     if (event.target == formContainer) {
@@ -171,15 +159,12 @@ window.onclick = function(event) {
 
 const loadedImages = new Set();
 
-// 이미지와 저장된 데이터를 불러오기
 window.addEventListener('load', function() {
     for (let i = 0; i < localStorage.length; i++) {
         const imageId = localStorage.key(i);
 
-        // 페이지별 고유 ID로 구분
         if (!imageId.startsWith(pageId)) continue;
 
-        // 중복 방지를 위해 로드된 이미지를 체크
         if (loadedImages.has(imageId)) continue;
         loadedImages.add(imageId);
 
@@ -194,7 +179,6 @@ window.addEventListener('load', function() {
             imageItem.appendChild(imgElement);
             imageItem.dataset.savedContentId = imageId;
 
-            // 클릭 및 더블 클릭 이벤트
             imageItem.addEventListener('click', function() {
                 document.getElementById('formContainer').style.display = 'block';
                 loadFormData(imageItem); 
@@ -206,7 +190,6 @@ window.addEventListener('load', function() {
                 showSavedContent(this); 
             });
 
-            // 이미지 배치
             let shelves = document.getElementsByClassName('shelf');
             for (let shelf of shelves) {
                 if (shelf.children.length < 5) {
@@ -218,14 +201,13 @@ window.addEventListener('load', function() {
     }
 });
 
-// 파일 선택 시 이미지 업로드 및 저장
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const imageId = `${pageId}-${Date.now()}`; 
-            if (loadedImages.has(imageId)) return; // 중복 방지
+            if (loadedImages.has(imageId)) return;
 
             const imgElement = document.createElement('img');
             imgElement.src = e.target.result;
@@ -246,7 +228,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                 showSavedContent(this); 
             });
 
-            // 이미지 배치
             let shelves = document.getElementsByClassName('shelf');
             for (let shelf of shelves) {
                 if (shelf.children.length < 5) {
@@ -255,7 +236,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                 }
             }
 
-            // 이미지와 기본 데이터를 로컬 스토리지에 저장
             const savedContent = {
                 imageSrc: e.target.result, 
                 bookTitle: '', 
@@ -266,13 +246,12 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                 emoji: ''  
             };
             localStorage.setItem(imageId, JSON.stringify(savedContent)); 
-            loadedImages.add(imageId); // 중복 방지를 위해 저장
+            loadedImages.add(imageId); 
         };
         reader.readAsDataURL(file); 
     }
 });
 
-// 저장된 데이터 폼에 불러오기
 function loadFormData(imageItem) {
     const imageId = imageItem.dataset.savedContentId;
     if (imageId) {
@@ -290,7 +269,6 @@ function loadFormData(imageItem) {
     }
 }
 
-// 폼 데이터 저장 (기존 데이터 덮어쓰기)
 function saveContent(imageItem) {
     const bookTitle = document.getElementById('bookTitle').value;
     const pageCount = document.getElementById('pageCount').value;
@@ -314,7 +292,6 @@ function saveContent(imageItem) {
     document.getElementById('formContainer').style.display = 'none';
 }
 
-// 폼 리셋 함수
 function resetForm() {
     document.getElementById('bookTitle').value = '';
     document.getElementById('pageCount').value = '';

@@ -7,7 +7,6 @@
     padding: 0 20px; 
 }
 
-/* Book Memories */
 .logo {
     font-family: 'Julee', sans-serif;
     font-size: 64px;
@@ -17,7 +16,6 @@
     margin-bottom: 20px; 
 }
 
-/* 책 속의 기억을 함께 간직하세요 */
 .slogan {
     font-family: 'Yeon Sung', sans-serif;
     font-size: 36px;
@@ -42,23 +40,19 @@
 
 .top-layer {
     top: 50px;
-   /* animation: moveRight 20s linear infinite;*/
 }
 
 .middle-layer {
     top: 210px;
-    /*animation: moveLeft 20s linear infinite;*/
 }
 
 .bottom-layer {
     top: 370px;
-    /*animation: moveRight 20s linear infinite;*/
 }
 
 .layer img {
     width: 100px; 
     height: auto;
-    /*margin: 0;*/
     margin-right: 20px; 
     padding: 0; 
 
@@ -90,12 +84,10 @@
     }
 }
 
-/*무한히 반복되는 책들*/
 .book-track {
     display: flex;
     width: 100%; 
     white-space: nowrap;
-    /*animation: scrollBooks 20s linear infinite;*/
 }
 
 .book-track img {
@@ -120,7 +112,6 @@ body {
     z-index: -1;
   }
 
-/* 소제목 */
 .subtitle {
     position: relative;
     width: 100%;
@@ -142,7 +133,6 @@ body {
     align-items: center; 
 }
 
-/* 버튼  */
 .rectangle {
     width: 300px;
     height: 200px;
@@ -211,6 +201,18 @@ body {
     }
 
     .subtext {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    .logo {
+        font-size: 40px;
+    }
+
+    .subtitle{
+        font-size: 30px
+    }
+
+    .slogan{
+        font-size: 30px
     }
 }
