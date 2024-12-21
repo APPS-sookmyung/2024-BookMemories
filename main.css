@@ -1,19 +1,10 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    padding: 0 20px; 
-}
-
 .logo {
     font-family: 'Julee', sans-serif;
     font-size: 64px;
     line-height: 75px;
     text-align: center;
     color: #000000;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .slogan {
@@ -25,6 +16,7 @@
 }
 
 .book-carouse {
+    overflow-x: hidden;
     width: 100%;
     overflow: visible;
     position: relative;
@@ -96,18 +88,17 @@
     margin: 0; 
     padding: 0; 
 }
-    
+
 body {
     position: relative;
     min-height: 600px; 
+    overflow-x: hidden;
   }
   
   .dark-navy-section {
     position: absolute;
     top: 800px;
     width: 100%;
-    
-
     background-color: #001f3f; 
     z-index: -1;
   }
@@ -162,7 +153,7 @@ body {
 
 
 .rectangle:hover {
-    background-color: #969191;
+    background-color: #8e9296
 }
 
 @media (max-width: 768px) {
@@ -216,3 +207,4 @@ body {
         font-size: 30px
     }
 }
+

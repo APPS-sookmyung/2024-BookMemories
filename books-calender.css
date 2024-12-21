@@ -5,12 +5,17 @@ body {
   color: #333;
 }
 
-h1 {
+h1 a{
   text-align: center;
   margin: 20px 0;
   font-family: 'Julee', sans-serif;
   font-size: 48px;
   color: #fefefe;
+  text-decoration: none;
+}
+
+h1 a:hover {
+    color:#8e9296
 }
 
 p {
@@ -75,7 +80,7 @@ header {
 
 .calendar-day {
   font-family: 'Jua', sans-serif;
-  padding: 15px;
+  padding: 10px;
   border: 1px solid #ccc;
   background-color: #fff;
   cursor: pointer;
