@@ -16,11 +16,14 @@
 }
 
 .book-carouse {
-    overflow-x: hidden;
     width: 100%;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
-    height: 300px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 1200px */
 }
 
 .layer {

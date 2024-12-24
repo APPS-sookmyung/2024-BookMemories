@@ -72,7 +72,7 @@ header {
     border: none;
     padding: 0;
     cursor: pointer;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
 }
@@ -81,7 +81,6 @@ header {
     width: 50px;
     height: 50px;
     background: rgb(252, 252, 252);
-    mix-blend-mode: normal;
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -240,7 +239,7 @@ textarea {
     font-family: 'Jua', sans-serif;
     display: none;
     pointer-events: auto; 
-    position: absolute;
+    /* position: absolute; */
     right: 0;
     top: 60px;
     background-color: white;
@@ -290,8 +289,8 @@ textarea {
         width: 85%;
     }
 
-    .upload-button, .hamburger-menu {
-        top: 15px;
+    .uploadButton, .upload-button, .hamburger-menu {
+        top: 50px;
         width: 40px;
         height: 40px;
     }
@@ -314,6 +313,13 @@ textarea {
     #formContainer {
         width: 85%;
     }
+
+    .upload-button {
+        right: 200px;
+    }
+    .hamburger-menu {
+        left: 200px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -331,7 +337,7 @@ textarea {
     }
 
     .upload-button, .hamburger-menu {
-        top: 8px;
+        top: 50px;
         width: 30px;
         height: 30px;
     }
@@ -358,4 +364,11 @@ textarea {
     .form-content {
         padding: 8px;
     }
+
+    /* .upload-button {
+        right: 200px;
+    }
+    .hamburger-menu {
+        left: 200px;
+    } */
 }
