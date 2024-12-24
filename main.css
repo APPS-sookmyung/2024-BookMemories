@@ -1,0 +1,213 @@
+.logo {
+    font-family: 'Julee', sans-serif;
+    font-size: 64px;
+    line-height: 75px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.slogan {
+    font-family: 'Yeon Sung', sans-serif;
+    font-size: 36px;
+    line-height: 45px;
+    text-align: center;
+    color: #000000;
+}
+
+.book-carouse {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 1200px */
+}
+
+.layer {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.top-layer {
+    top: 50px;
+}
+
+.middle-layer {
+    top: 210px;
+}
+
+.bottom-layer {
+    top: 370px;
+}
+
+.layer img {
+    width: 100px; 
+    height: auto;
+    margin-right: 20px; 
+    padding: 0; 
+
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; 
+
+}
+
+
+.hide {
+    opacity: 0;
+    transform: translateX(-100%); 
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes moveLeft {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.book-track {
+    display: flex;
+    width: 100%; 
+    white-space: nowrap;
+}
+
+.book-track img {
+    width: 150px; 
+    height: auto;
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    position: relative;
+    min-height: 600px; 
+    overflow-x: hidden;
+  }
+  
+  .dark-navy-section {
+    position: absolute;
+    top: 800px;
+    width: 100%;
+    background-color: #001f3f; 
+    z-index: -1;
+  }
+
+.subtitle {
+    position: relative;
+    width: 100%;
+    font-family: 'Yeon Sung', sans-serif;
+    font-size: 36px;
+    line-height: 200px;
+    text-align: center;
+    color: #fcf9f9;
+    margin-bottom: 15px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px;
+    width: 100%;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.rectangle {
+    width: 300px;
+    height: 200px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.text {
+    font-family: 'Jua', sans-serif;
+    font-size: 32px;
+    color: #000000;
+}
+
+.subtext {
+    font-family: 'Yeon Sung', sans-serif;
+    font-size: 20px;
+    color: #000000;
+    margin-top: 10px;
+}
+
+
+.rectangle:hover {
+    background-color: #8e9296
+}
+
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .rectangle {
+        width: 200px;
+        height: 150px;
+    }
+
+    .text {
+        font-size: 24px;
+    }
+
+    .subtext {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .rectangle {
+        width: 150px;
+        height: 120px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .subtext {
+        font-size: 12px;
+    }
+
+    .logo {
+        font-size: 40px;
+    }
+
+    .subtitle{
+        font-size: 30px
+    }
+
+    .slogan{
+        font-size: 30px
+    }
+}
+

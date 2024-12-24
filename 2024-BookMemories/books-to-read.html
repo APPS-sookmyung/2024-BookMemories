@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMemories</title>
+    <link rel="stylesheet" href="books-to-read.css">
+    <link href="https://fonts.googleapis.com/css2?family=Julee&family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>BookMemories</h1>
+        <p>당신의 독서 여정을 시작해보세요!</p>
+    </header>
+    <div class="books-read">
+        <div class="bookshelf">
+            <div class="rectangle-1 shelf" id="shelf1"></div>
+            <div class="rectangle-2 shelf" id="shelf2"></div>
+            <div class="rectangle-3 shelf" id="shelf3"></div>
+            <div class="rectangle-4 shelf" id="shelf4"></div>
+            <button id="uploadButton" class="upload-button">
+                <div class="uploadButton">
+                    <div class="icon-plus"></div>
+                </div>
+            </button>
+            <input type="file" id="fileInput" style="display: none;">
+        </div>
+        <div id="formContainer" class="form-container">
+            <span class="close">&times;</span>
+            <div class="form-content">
+                <label for="bookTitle">책 제목</label>
+                <input type= "text" id="bookTitle" class="form-input">
+                <label for="pageCount">페이지 수</label>
+                <input type="number" id="pageCount" class="form-input">
+                <label for="author">저자</label>
+                <input type="text" id="author" class="form-input">
+                <label for="publisher">출판사</label>
+                <input type="text" id="publisher" class="form-input">
+                <label for="date">추가된 날짜</label>
+                <input type="date" id="addDate" class="form-input">
+                <button id="saveButton">저장</button>
+                <button id="deleteButton">삭제</button>
+            </div>
+        </div>
+
+        <div class="hamburger-menu">
+            <button class="menu-icon">☰</button>
+            <div class="dropdown-menu">
+                <a href="index.html">Home</a>
+                <a href="books-to-read.html">읽을 책</a>
+                <a href="books-read.html">읽은 책</a>
+                <a href="books-calender.html">독서 달력</a>
+            </div>
+        </div>
+
+        <div id="savedContentContainer" class="saved-content-container">
+        </div>
+    </div>
+    <script src="books-to-read.js"></script>
+</body>
+</html>
